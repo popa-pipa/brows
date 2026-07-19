@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Brows</title>
+<link rel="stylesheet" href="browser.css" />
+</head>
+<body>
+
+  <!-- Своя шапка окна -->
+  <header id="titlebar">
+    <div id="titlebar-drag">
+      <div id="brand">
+        <span id="brand-dot"></span>
+        <span id="brand-name">Brows</span>
+      </div>
+
+      <div id="tabstrip" role="tablist"></div>
+
+      <button id="tab-add" title="Новая вкладка (Ctrl+T)">+</button>
+    </div>
+
+    <div id="win-controls">
+      <button id="win-min" title="Свернуть">&#8211;</button>
+      <button id="win-max" title="Развернуть">&#9633;</button>
+      <button id="win-close" title="Закрыть">&#10005;</button>
+    </div>
+  </header>
+
+  <!-- Панель навигации -->
+  <div id="toolbar">
+    <button class="nav-btn" id="btn-back" title="Назад">&#8592;</button>
+    <button class="nav-btn" id="btn-forward" title="Вперёд">&#8594;</button>
+    <button class="nav-btn" id="btn-reload" title="Обновить">&#8635;</button>
+    <button class="nav-btn" id="btn-home" title="Домой">&#8962;</button>
+
+    <div id="addressbar">
+      <button id="engine-toggle" title="Поисковая система">
+        <span id="engine-icon">G</span>
+      </button>
+      <input id="address-input" type="text" placeholder="Введите адрес или поисковый запрос" autocomplete="off" spellcheck="false" />
+      <span id="load-indicator" class="hidden"></span>
+    </div>
+
+    <button class="nav-btn" id="btn-settings" title="Настройки внешнего вида">&#9881;</button>
+  </div>
+
+  <!-- Область вкладок -->
+  <div id="webview-container"></div>
+
+  <!-- Панель настроек (выезжает справа) -->
+  <aside id="settings-panel" class="hidden">
+    <div class="settings-head">
+      <h2>Настройка Brows</h2>
+      <button id="settings-close">&#10005;</button>
+    </div>
+
+    <div class="settings-body">
+      
+      <!-- Навигация по разделам настроек -->
+      <nav class="settings-nav">
+        <button class="settings-nav-btn active" data-section="appearance">Внешний вид</button>
+        <button class="settings-nav-btn" data-section="privacy">Конфиденциальность</button>
+        <button class="settings-nav-btn" data-section="extensions">Расширения</button>
+        <button class="settings-nav-btn" data-section="hotkeys">Горячие клавиши</button>
+        <button class="settings-nav-btn" data-section="notes">Заметки</button>
+      </nav>
+
+      <!-- Раздел: Внешний вид -->
+      <div class="settings-section active" id="section-appearance">
+
+      <section>
+        <h3>Поисковая система</h3>
+        <div class="seg" id="engine-picker">
+          <button data-engine="google" class="seg-btn active">Google</button>
+          <button data-engine="yandex" class="seg-btn">Яндекс</button>
+          <button data-engine="bing" class="seg-btn">Bing</button>
+          <button data-engine="duckduckgo" class="seg-btn">DuckDuckGo</button>
+        </div>
+      </section>
+
+      <section>
+        <h3>Домашняя страница</h3>
+        <input type="text" id="homepage-input" placeholder="brows://newtab или URL" />
+      </section>
+
+      <section>
+        <h3>Акцентный цвет</h3>
+        <div class="swatches" id="accent-swatches">
+          <button class="swatch" data-color="#ffb020" style="background:#ffb020"></button>
+          <button class="swatch" data-color="#4fd1c5" style="background:#4fd1c5"></button>
+          <button class="swatch" data-color="#7c9eff" style="background:#7c9eff"></button>
+          <button class="swatch" data-color="#ff6b6b" style="background:#ff6b6b"></button>
+          <button class="swatch" data-color="#c792ea" style="background:#c792ea"></button>
+        </div>
+        <input type="color" id="accent-custom" value="#ffb020" />
+      </section>
+
+      <section>
+        <h3>Фон интерфейса</h3>
+        <div class="row">
+          <label>Цвет шапки</label>
+          <input type="color" id="chromebg-input" value="#14161c" />
+        </div>
+        <div class="row">
+          <label>Цвет активной вкладки</label>
+          <input type="color" id="tabactive-input" value="#20232d" />
+        </div>
+      </section>
+
+      <section>
+        <h3>Форма элементов</h3>
+        <div class="row">
+          <label>Скругление (<span id="radius-val">10</span>px)</label>
+          <input type="range" id="radius-input" min="0" max="22" value="10" />
+        </div>
+        <div class="seg" id="density-picker">
+          <button data-density="comfortable" class="seg-btn active">Просторно</button>
+          <button data-density="compact" class="seg-btn">Компактно</button>
+        </div>
+      </section>
+
+      <section>
+        <h3>Шрифт интерфейса</h3>
+        <div class="seg" id="font-picker">
+          <button data-font="ui" class="seg-btn active">Системный</button>
+          <button data-font="mono" class="seg-btn">Моноширинный</button>
+          <button data-font="round" class="seg-btn">Скруглённый</button>
+        </div>
+      </section>
+
+      <section>
+        <h3>Фон новой вкладки</h3>
+        <div class="seg" id="newtab-bgtype-picker">
+          <button data-bgtype="gradient" class="seg-btn active">Градиент</button>
+          <button data-bgtype="solid" class="seg-btn">Цвет</button>
+          <button data-bgtype="image" class="seg-btn">Картинка (URL)</button>
+        </div>
+        <input type="text" id="newtab-bgvalue-input" placeholder="linear-gradient(...) / #hex / https://..." />
+      </section>
+
+      <section>
+        <button id="settings-reset" class="danger-btn">Сбросить настройки</button>
+      </section>
+
+      </div>
+
+      <!-- Раздел: Конфиденциальность -->
+      <div class="settings-section" id="section-privacy">
+        <section>
+          <h3>Блокировка трекеров</h3>
+          <p class="setting-desc">Блокирует известные трекеры и системы аналитики при загрузке страниц</p>
+          <label class="toggle-label">
+            <input type="checkbox" id="block-trackers-toggle" />
+            <span class="toggle-slider"></span>
+            <span>Включить блокировку трекеров</span>
+          </label>
+        </section>
+      </div>
+
+      <!-- Раздел: Расширения -->
+      <div class="settings-section" id="section-extensions">
+        <section>
+          <h3>Установленные расширения</h3>
+          <div id="extensions-list"></div>
+        </section>
+      </div>
+
+      <!-- Раздел: Горячие клавиши -->
+      <div class="settings-section" id="section-hotkeys">
+        <section>
+          <h3>Горячие клавиши</h3>
+          <p class="setting-desc">Создавайте собственные сочетания клавиш для действий браузера</p>
+          
+          <div class="hotkey-creator">
+            <div class="hotkey-input-row">
+              <input type="text" id="hotkey-combo-input" placeholder="Нажмите комбинацию..." readonly />
+              <select id="hotkey-action-select">
+                <option value="">Выберите действие</option>
+                <option value="newTab">Новая вкладка</option>
+                <option value="closeTab">Закрыть вкладку</option>
+                <option value="reload">Обновить</option>
+                <option value="focusAddress">Фокус на адресную строку</option>
+                <option value="back">Назад</option>
+                <option value="forward">Вперёд</option>
+                <option value="home">Домой</option>
+                <option value="toggleBookmarks">Показать/скрыть закладки</option>
+                <option value="toggleHistory">Показать/скрыть историю</option>
+                <option value="openNotes">Открыть заметки</option>
+              </select>
+            </div>
+            <div class="hotkey-condition-builder">
+              <h4>Условие выполнения (необязательно)</h4>
+              <div id="condition-editor">
+                <div class="condition-node">
+                  <select class="condition-type">
+                    <option value="url_contains">URL содержит</option>
+                    <option value="url_equals">URL равен</option>
+                    <option value="url_starts">URL начинается с</option>
+                    <option value="domain_equals">Домен равен</option>
+                  </select>
+                  <input type="text" class="condition-value" placeholder="например: youtube.com" />
+                </div>
+              </div>
+              <button id="add-condition-btn" class="small-btn">+ Добавить условие</button>
+            </div>
+            <button id="add-hotkey-btn" class="primary-btn">Добавить горячую клавишу</button>
+          </div>
+          
+          <div id="hotkeys-list" class="hotkeys-list"></div>
+        </section>
+      </div>
+
+      <!-- Раздел: Заметки -->
+      <div class="settings-section" id="section-notes">
+        <section>
+          <h3>Заметки</h3>
+          <div class="notes-toolbar">
+            <button id="add-note-btn" class="primary-btn">+ Новая заметка</button>
+          </div>
+          <div id="notes-list" class="notes-list"></div>
+          
+          <!-- Редактор заметки -->
+          <div id="note-editor" class="note-editor hidden">
+            <input type="text" id="note-title-input" placeholder="Заголовок" />
+            <textarea id="note-content-input" placeholder="Текст заметки..."></textarea>
+            <div class="note-editor-actions">
+              <button id="save-note-btn" class="primary-btn">Сохранить</button>
+              <button id="cancel-note-btn" class="secondary-btn">Отмена</button>
+              <button id="delete-note-btn" class="danger-btn">Удалить</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </aside>
+
+  <script src="browser.js"></script>
+</body>
+</html>

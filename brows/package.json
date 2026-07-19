@@ -1,0 +1,16 @@
+{
+  "name": "brows",
+  "productName": "Brows",
+  "version": "0.1.0",
+  "description": "Кастомный браузер с визуальной настройкой интерфейса и выбором поисковой системы",
+  "main": "main.js",
+  "author": "popa-pipa/brows",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^31.0.0"
+  }
+}
