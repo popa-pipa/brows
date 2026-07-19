@@ -1,0 +1,119 @@
+:root {
+  --accent: #ffb020;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; height: 100%;
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #f2f2f4;
+  overflow: hidden;
+}
+
+body {
+  background: linear-gradient(135deg,#14161c,#1f2333 60%,#2a2140);
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+#clock {
+  position: absolute;
+  top: 36px; left: 40px;
+  user-select: none;
+}
+#clock-time {
+  font-size: 44px;
+  font-weight: 200;
+  letter-spacing: 1px;
+}
+#clock-date {
+  font-size: 13px;
+  opacity: 0.55;
+  margin-top: 2px;
+  text-transform: capitalize;
+}
+
+#center {
+  width: 100%;
+  max-width: 560px;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#logo {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 26px;
+}
+
+#search-wrap {
+  width: 100%;
+  margin-bottom: 40px;
+}
+#search-input {
+  width: 100%;
+  height: 52px;
+  padding: 0 22px;
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+#search-input::placeholder { color: rgba(255,255,255,0.4); }
+#search-input:focus {
+  border-color: var(--accent);
+  background: rgba(255,255,255,0.09);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+#shortcuts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  width: 100%;
+}
+
+.shortcut {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  padding: 12px 4px;
+  border-radius: 14px;
+  transition: background 0.15s ease, transform 0.1s ease;
+  cursor: pointer;
+}
+.shortcut:hover { background: rgba(255,255,255,0.06); transform: translateY(-1px); }
+.shortcut-icon {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.shortcut-name {
+  font-size: 11.5px;
+  opacity: 0.75;
+  max-width: 72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
